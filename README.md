@@ -1,10 +1,15 @@
-# DJANGO QUICK START TEMPLATE
+# THIRD YEAR PROJECT
 
 ## Getting Started
-To get a copy of the project up and running on your local machine for development and testing purposes, 
+To get a copy of the project up and running on your local machine for development and testing purposes,
+
+- For `WINDOWS` users:
+  - [Follow this article](https://animesh.blog/setting-up-an-existing-django-project-on-windows/)
+
+- For `LINUX` users:
 1. **clone** this repository 
    ``` 
-   git clone https://github.com/KarenNgala/django-template
+   git clone https://github.com/KarenNgala/online-school-database
    ```
 2. Install and actvate a virtual environment
    ```bash
