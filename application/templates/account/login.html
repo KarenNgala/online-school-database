@@ -1,0 +1,38 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load i18n %}
+
+
+{% block head_links %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<form action="{% url 'account_login' %}" method="post" id="frm">
+    <fieldset id="fld">
+		<legend>Login</legend>
+		
+		{% csrf_token %} {% for field in form %}
+		<label for="{{ field.field.field.widget.input_type }}"></label>
+		<input id="{{ field.id_for_label }}" class="input" placeholder="{{field.label|title}}" 
+			type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" autocomplete="off"> 
+			{% if field.field.widget.input_type == 'checkbox' %}
+			{{field.label}}
+			{% endif %}
+			<br><br>
+		{{ field.errors }} {% endfor %}
+
+		{% if redirect_field_value %}
+		<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+		{% endif %}
+		<input type="submit" value="Login" class="btn"></button>
+
+		<br><br>
+		<p class="text-center"> <a class="text-danger" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a> </p>
+
+        Don't have an account? <a href="{% url 'account_signup' %}">Signup</a><br><br><br>
+    </fieldset>
+</form>
+{% endblock %}
