@@ -1,0 +1,102 @@
+.container {
+	display: grid;
+}
+
+.oceanic {
+	width: 131px;
+	height: 60px;
+	left: 50px;
+	top: 29px;
+
+	font-family: Oswald;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 34px;
+	line-height: 154.7%;
+	/* or 53px */
+
+	font-feature-settings: 'pnum' on, 'onum' on;
+
+	color: #000000;
+
+}
+
+.home {
+	width: 79px;
+	height: 37px;
+	left: 250px;
+	top: 41px;
+
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 154.7%;
+	/* or 37px */
+
+	font-feature-settings: 'pnum' on, 'onum' on;
+
+	color: #000000;
+}
+
+.image1 {
+	display: grid;
+	height: 20vh;
+	opacity: 0;
+
+}
+/*@media only screen and(min-width: 400px){
+	.image1 {
+	display: grid;
+	height: 20vh;
+	opacity: 0;
+}
+}*/
+
+.form {
+	display: grid;
+
+}
+.form_heading {
+	margin: 5%;
+}
+
+.form_heading_text {
+	margin: 5%;
+}
+
+.form_box {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	text-align: center;
+}
+
+.create_button {
+	background-color: #F5B3A5;
+	color: black;
+	border-color: #F5B3A5;
+}
+
+.nav_bar {
+	background-color: #fff;
+	color: #000;
+
+}
+
+.login_button {
+	background-color: #000;
+	color: #fff;
+	border-color: #000;	
+}
+
+.signup_button {
+	background-color: #F5B3A5;
+	border-color: #F5B3A5;
+	color: #000;
+}
+
+.errorlist{
+	color: red;
+	list-style: none;
+}
