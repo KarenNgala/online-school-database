@@ -36,23 +36,6 @@ class TestUniversity(TestCase):
         self.assertEqual(len(University.objects.all()), 1)
 
 
-class TestUnit(TestCase):
-    ''' test unit model class '''
-    def setUp(self):
-        ''' method called before each testcase '''
-        self.unit = Unit(name='Electronics II')
-        self.unit.save()
-
-    def tearDown(self):
-        ''' method to clear all setup instances after each test is run '''
-        self.unit.delete()
-
-    def test_unit_creation(self):
-        ''' method to test creation of unit instances '''
-        self.assertIsInstance(self.unit, Unit)
-        self.assertEqual(len(Unit.objects.all()), 1)
-
-
 class TestCourse(TestCase):
     ''' test course model class '''
     def setUp(self):
@@ -74,7 +57,7 @@ class TestYear(TestCase):
     ''' test year model class '''
     def setUp(self):
         ''' method called before each testcase '''
-        self.year = Year(name='Third')
+        self.year = Year_Of_Study(name=1.1)
         self.year.save()
 
     def tearDown(self):
@@ -83,47 +66,39 @@ class TestYear(TestCase):
 
     def test_year_creation(self):
         ''' method to test creation of year instances '''
-        self.assertIsInstance(self.year, Year)
-        self.assertEqual(len(Year.objects.all()), 1)
+        self.assertIsInstance(self.year, Year_Of_Study)
+        self.assertEqual(len(Year_Of_Study.objects.all()), 1)
 
 
-class TestSemester(TestCase):
-    ''' test semester model class '''
+class TestUnit(TestCase):
+    ''' test unit model class '''
     def setUp(self):
         ''' method called before each testcase '''
-        self.sem = Semester(name='3')
-        self.sem.save()
+        self.uni = University(name='Masinde Muliro')
+        self.uni.save()
+
+        self.year = Year_Of_Study(name='3.1')
+        self.year.save()
 
     def tearDown(self):
         ''' method to clear all setup instances after each test is run '''
-        self.sem.delete()
+        self.uni.delete()
+        self.course.delete()
+        self.year.delete()
 
-    def test_semester_creation(self):
-        ''' method to test creation of semester instances '''
-        self.assertIsInstance(self.sem, Semester)
-        self.assertEqual(len(Semester.objects.all()), 1)
+    def test_unit_creation(self):
+        ''' method to test creation of unit instances '''
+        self.unit = Unit(name='314: Electronics III', uni=self.uni, year=self.year)
+        self.unit.save()
+        self.course = self.unit.course.create(name='Computer Science')
 
-
-
-class TestType(TestCase):
-    ''' test type model class '''
-    def setUp(self):
-        ''' method called before each testcase '''
-        self.type = Type(name='Course Outline')
-        self.type.save()
-
-    def tearDown(self):
-        ''' method to clear all setup instances after each test is run '''
-        self.type.delete()
-
-    def test_type_creation(self):
-        ''' method to test creation of type instances '''
-        self.assertIsInstance(self.type, Type)
-        self.assertEqual(len(Type.objects.all()), 1)
+        self.assertIsInstance(self.unit, Unit)
+        self.assertEqual(len(Unit.objects.all()), 1)
+        self.assertEqual(self.unit.name, '314: Electronics III')
 
 
-class TestMaterial(TestCase):
-    ''' test material model class '''
+class TestFile(TestCase):
+    ''' test file model class '''
     def setUp(self):
         ''' method called before each testcase '''
         self.user = User.objects.create_user(email='address@email.com', password='Password123')
@@ -131,66 +106,24 @@ class TestMaterial(TestCase):
         self.uni = University(name='Masinde Muliro')
         self.uni.save()
 
-        self.unit = Unit(name='Electronics II')
+        self.unit = Unit(name='314: Electronics II')
         self.unit.save()
         
-        self.year = Year(name='Third')
-        self.year.save()
-  
-        self.sem = Semester(name='3')
-        self.sem.save()
-
-        self.type = Type(name='Course Outline')
-        self.type.save()
+        # year
 
     def tearDown(self):
         ''' method to clear all setup instances after each test is run '''
         self.user.delete()
         self.uni.delete()
-        self.course.delete()
         self.unit.delete()
-        self.year.delete()
-        self.sem.delete()
-        self.type.delete()
-        self.material.delete()
 
-    def test_material_creation(self):
-        ''' method to test creation of material instances '''
-        self.material = Material(name='326: Software Development Course Outline', uploaded_by=self.user, date=datetime.now, 
-                url='https://res.cloudinary.com/oceanic/image/upload/v1609160582/default_ynolea.png', image='https://res.cloudinary.com/tradity-capital/image/upload/v1609160582/default_ynolea.png',
-                uni=self.uni, unit=self.unit, year=self.year, semester=self.sem, type_of_material=self.type)
-        self.material.save()
-        self.course = self.material.course.create(name='Computer Science')
-
-        self.assertIsInstance(self.material, Material)
-        self.assertEqual(len(Material.objects.all()), 1)
-        self.assertEqual(self.material.name, '326: Software Development Course Outline')
-
-
-class TestBook(TestCase):
-    ''' test book model class '''
-    def setUp(self):
-        ''' method called before each testcase '''
-        self.user = User.objects.create_user(email='address@email.com', password='Password123')
-
-        self.unit = Unit(name='Electronics II')
-        self.unit.save()
-
-    def tearDown(self):
-        ''' method to clear all setup instances after each test is run '''
-        self.user.delete()
-        self.course.delete()
-        self.unit.delete()
-        self.book.delete()
-
-    def test_book_creation(self):
-        ''' method to test creation of book instances '''
-        self.book = Book(name='Principles of Electronics', author='V.K. Mehta', uploaded_by=self.user, date=datetime.now, 
-                url='https://res.cloudinary.com/oceanic/image/upload/v1609160582/default_ynolea.png', image='https://res.cloudinary.com/tradity-capital/image/upload/v1609160582/default_ynolea.png',
+    def test_file_creation(self):
+        ''' method to test creation of file instances '''
+        self.file = File(name='2016 Course Outline', uploaded_by=self.user, date=datetime.now, 
+                url='https://res.cloudinary.com/oceanic/image/upload/v1609160582/default_ynolea.png',
                 unit=self.unit)
-        self.book.save()
-        self.course = self.book.course.create(name='Electronics and Electronics Engineering')
+        self.file.save()
 
-        self.assertIsInstance(self.book, Book)
-        self.assertEqual(len(Book.objects.all()), 1)
-        self.assertEqual(self.book.name, 'Principles of Electronics')
+        self.assertIsInstance(self.file, File)
+        self.assertEqual(len(File.objects.all()), 1)
+        self.assertEqual(self.file.name, '2016 Course Outline')

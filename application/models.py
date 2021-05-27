@@ -62,13 +62,6 @@ class University(models.Model):
         return f"{self.name}"
 
 
-class Unit(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
 class Course(models.Model):
     name = models.CharField(max_length=255)
 
@@ -76,53 +69,31 @@ class Course(models.Model):
         return f"{self.name}"
 
 
-class Year(models.Model):
+class Year_Of_Study(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.name}"
 
 
-class Semester(models.Model):
+class Unit(models.Model):
     name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class Type(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class Material(models.Model):
-    name = models.CharField(max_length=255)
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    url = models.URLField()
-    image = models.URLField()
+    course = models.ManyToManyField(Course)
     uni = models.ForeignKey(University, on_delete=models.CASCADE)
-    course = models.ManyToManyField(Course)
-    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
-    year = models.ForeignKey(Year, on_delete=models.CASCADE)
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    type_of_material = models.ForeignKey(Type, on_delete=models.CASCADE)
+    year = models.ForeignKey(Year_Of_Study, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f"{self.name}"
 
 
-class Book(models.Model):
+class File(models.Model):
     name = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
     url = models.URLField()
-    image = models.URLField()
-    course = models.ManyToManyField(Course)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    # year_created = 
 
     def __str__(self):
         return f"{self.name}"
