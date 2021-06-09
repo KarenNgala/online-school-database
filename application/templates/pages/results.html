@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+    <div class="row">
+      
+      <div class="col form_box">
+        <div class="form_heading">
+          <h1>We found these results:</h1>
+        </div>
+        
+        <table class="table table-borderless">
+          <col style="width: 10%; padding: 0%;">
+          <col style="width: 80%; padding: 0%;">
+          <col style="width: 10%; padding: 0%;">
+
+          <tbody>
+            {% for file in files %}
+            <tr>
+              <th scope="row"><span class="iconify" data-inline="false" data-icon="ph:folder-bold" style="font-size: 20px;"></span></th>
+              <td>{{file.name}}</td>
+              <td>
+                <a href="/media/{{file.file}}">
+                  <span class="iconify" data-inline="false" data-icon="bx:bx-cloud-download" style="color: #06962e; font-size: 25px;"></span>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+
+
+      </div>
+      <div class="col-sm-0">
+        <img src="{% static 'img/results_img.png' %}">
+      </div>
+    </div>
+  </main>
+
+{% endblock %}

@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
-
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserManager(BaseUserManager):
@@ -52,3 +51,64 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
+
+
+
+class University(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Year_Of_Study(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Unit(models.Model):
+    name = models.CharField(max_length=255)    
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    uni = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
+    year = models.ForeignKey(Year_Of_Study, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"{self.name}-{self.course}-{self.uni}"
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    uni = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
+    year = models.ForeignKey(Year_Of_Study, on_delete=models.CASCADE, null=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+
+class File(models.Model):
+    name = models.CharField(max_length=255)
+    file = models.FileField()
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name}"

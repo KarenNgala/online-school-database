@@ -1,4 +1,4 @@
-# THIRD YEAR PROJECT
+# BOOKIE
 
 ## Getting Started
 To get a copy of the project up and running on your local machine for development and testing purposes,
