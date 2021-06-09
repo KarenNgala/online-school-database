@@ -4,14 +4,10 @@
 
 
 {% block head_links %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <style>
-    body {background-color: #EFDECE;height:100vh; }
+    body {background-color: #EFDECE;}
     .nav_bar {background-color: #EFDECE; }
-    main{
-      margin-top: 0px;
-      height: 30vh;
-    }
+    
 </style>
 {% endblock %}
 
@@ -49,7 +45,9 @@
 		{% endif %}
 
 		<input type="submit" value="Login" class="btn btn-primary login_button"></input> 
-    <!-- <br>  <p> - or-</p> -->
+    <br>
+    - or -
+    <br>
         {% load account socialaccount %}
 
         {% get_providers as socialaccount_providers %}
@@ -58,8 +56,7 @@
         <button class="btn btn-primary"> 
             <i class="fa fa-{{provider.name|lower}}" id="social_icon"></i>
             <a class="text-light" title="{{provider.name}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-                 <!-- Connect with  -->
-                 {{provider.name}}
+                Sign in with {{provider.name}}
             </a>
         </button>
         {% endfor %}

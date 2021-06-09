@@ -1,14 +1,48 @@
 {% extends "account/base.html" %}
+{% load static %}
+
+{% block head_links %}
+<style>
+    body {background-color: #EFF8FF;height:100vh; }
+    .nav_bar {background-color: #EFF8FF; }
+    main{
+      margin-top: 0px;
+      height: 30vh;
+    }
+</style>
+{% endblock %}
+
 
 {% block content %}
-<div class="container">
-    {% if user.is_authenticated %}
-    <br>
-    <h4>Logged in as: {{user.email}} </h4>
-    <a class="btn btn-danger" href="/accounts/logout">Logout</a>
-    {% else %}
-    <p>Homepage</p>
-    {% endif %}
-</div>
+<main>
+<div class="row">
+    
+    <div class="col form_box">
+      <div class="form_heading">
+        <h1>We've got notes...</h1>
+      </div>
+      <div class="form_heading_text">
+        <p>Refine your search</p>
+      </div>
+      <form role="search" action="{% url 'home' %}" method="GET">
+        <div class="form_group">
+          <select class="form-control" name="unit" id="unit" required>
+            <option selected disabled>Select Unit</option>
+            {% for unit in allUnits %}
+                <option value="{{unit.id}}">{{unit.name}}</option>
+            {% endfor %}      
+          </select>
+        </div>
+        <br>        
 
+        <button type="submit" class="btn btn-primary login_button">Refine search</button>
+
+      </form>
+
+    </div>
+    <div class="col-sm-0">
+      <img src="{% static 'img/landing_img.png' %}">
+    </div>
+  </div>
+</main>
 {% endblock %}

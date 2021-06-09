@@ -4,7 +4,6 @@
 
 
 {% block head_links %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
 
@@ -16,10 +15,10 @@
     </div>
     <div class="col form_box">
       <div class="form_heading">
-        <h1>Signup</h1>
+        <h1 class="text-bold">Get Started</h1>
       </div>
       <div class="form_heading_text">
-        <p>Something sth!</p>
+        <p>Ready to get your hands on <br> endless pages of study content?</p>
       </div>
 
 <form action="{% url 'account_signup' %}" method="post" id="frm">
@@ -38,8 +37,10 @@
 		<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
 		{% endif %}
 
-		<input type="submit" value="Signup" class="btn btn-primary signup_button"></button>
-        
+		<input type="submit" value="Create Free Account" class="btn signup_button">
+    <br>
+    - or -
+    <br>
     {% load account socialaccount %}
 
     {% get_providers as socialaccount_providers %}
@@ -48,8 +49,7 @@
     <button class="btn btn-primary"> 
         <i class="fa fa-{{provider.name|lower}}" id="social_icon"></i>
         <a class="text-light" title="{{provider.name}}" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-             <!-- Connect with  -->
-             {{provider.name}}
+             Signup with {{provider.name}}
         </a>
     </button>
     {% endfor %}

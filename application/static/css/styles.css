@@ -90,6 +90,12 @@
 	border-color: #000;	
 }
 
+.logo {
+	font-weight: bolder;
+	font-size: 200%;
+
+}
+
 .signup_button {
 	background-color: #F5B3A5;
 	border-color: #F5B3A5;

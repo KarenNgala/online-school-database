@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import django_heroku
 import dj_database_url
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 from pathlib import Path
 from decouple import config, Csv
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # 'cloudinary_storage',
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'crispy_forms',
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = 'application.User'
@@ -160,6 +165,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/edit_profile'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 ACCOUNT_LOGOUT_ON_GET = True
 
@@ -189,5 +195,15 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+#     'API_KEY': os.environ.get('API_KEY'),
+#     'API_SECRET': os.environ.get('API_SECRET'),
+# }
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+# ALLOWED_EXTENSIONS = ['pdf', 'docx', 'pptx']
 
 django_heroku.settings(locals())
